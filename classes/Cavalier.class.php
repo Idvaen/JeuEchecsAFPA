@@ -1,12 +1,6 @@
 <?php
 class Cavalier extends PieceEchecs
 {
-    public function __construct(int $x = 2, int $y = 1, int $color = 1)
-    {
-        parent::__construct($x, $y, $color);
-    }
-
-
     public function peutAller(int $coordX, int $coordY)
     {
 
