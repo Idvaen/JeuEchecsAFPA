@@ -115,12 +115,12 @@ function tableauxEchecs()
                 <tr>
                     <th>8y</th>
                     <td class="light"></td>
-                    <td class="dark">CW</td>
+                    <td class="dark">CB</td>
                     <td class="light"></td>
                     <td class="dark"></td>
                     <td class="light"></td>
                     <td class="dark"></td>
-                    <td class="light"></td>
+                    <td class="light">CB</td>
                     <td class="dark"></td>
                 </tr>
                 <tr>
@@ -171,7 +171,7 @@ function tableauxEchecs()
                     <th>3y</th>
                     <td class="dark"></td>
                     <td class="light"></td>
-                    <td class="dark"></td>
+                    <td class="dark">CW</td>
                     <td class="light"></td>
                     <td class="dark"></td>
                     <td class="light"></td>
@@ -192,12 +192,12 @@ function tableauxEchecs()
                 <tr>
                     <th>1y</th>
                     <td class="dark"></td>
-                    <td class="light">CW</td>
-                    <td class="dark"></td>
                     <td class="light"></td>
                     <td class="dark"></td>
                     <td class="light"></td>
                     <td class="dark"></td>
+                    <td class="light"></td>
+                    <td class="dark">CW</td>
                     <td class="light"></td>
                 </tr>
                 <tr>
