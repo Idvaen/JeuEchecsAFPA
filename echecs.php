@@ -1,28 +1,4 @@
 <?php
-
-spl_autoload_register(function ($class) {
-    require_once "classes/$class.class.php";
-});
-
-const RC = "<br>\n";
-
-try {
-    $c1 = new Cavalier(2, 8, PieceEchecs::NOIRE);
-    echo $c1 . RC;
-    $c2 = new Cavalier(3, 3, PieceEchecs::BLANCHE);
-    echo $c2 . RC;
-    echo "2,8 "; var_dump($c1->peutAller(1, 6)); echo RC;
-    echo "3,3 "; var_dump($c2->peutAller(1, 6)); echo RC;
-    var_dump($c1->peutAller(0, 7)); echo RC;
-    var_dump($c1->peutAller(2, 8)); echo RC;
-    var_dump($c1->peutAller(3, 10)); echo RC;
-
-
-} catch (PieceEchecsException $e) {
-    echo $e->getMessage();
-}
-
-
 // Objectifs :
 // Assimiler les notions objet incontournables : la classe et l’héritage.
 // Déroulement :
@@ -91,6 +67,27 @@ try {
 // respectives des pièces et de leurs couleurs.
 // Testez avec une application
 
+
+spl_autoload_register(function ($class) {
+    require_once "classes/$class.class.php";
+});
+
+const RC = "<br>\n";
+
+try {
+    $c1 = new Cavalier(3,3,PieceEchecs::NOIRE);
+    $f1 = new Fou(5, 3, PieceEchecs::BLANCHE);
+    $c2 = new Cavalier(2,8,PieceEchecs::BLANCHE);
+    $f2 = new Fou(4, 5, PieceEchecs::NOIRE);
+    $p1 = new Pion(4,2, PieceEchecs::BLANCHE);
+    $p2 = new Pion(7,7, PieceEchecs::NOIRE);
+
+} catch (PieceEchecsException $e) {
+    echo $e->getMessage();
+}
+
+
+
 function tableauxEchecs()
 {
 
@@ -105,7 +102,7 @@ function tableauxEchecs()
 <html>
 
 <head>
-    <title></title>
+    <title>Jeu de l'Echecs</title>
     <meta charset="UTF-8">
     <style>
         .chess-board {
@@ -136,13 +133,16 @@ function tableauxEchecs()
 </head>
 
 <body>
+    <h1>Jeu de l'echecs</h1>
     <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post">
         <label for="x">X</label>
-        <input type="number" name="x">
+        <input type="number" name="x" id="x" style="width: 50px;" value="0">
         <label for="y">Y</label>
-        <input type="number" name="y">
+        <input type="number" name="y" id="y" style="width: 50px;" value="0">
+        <input type="submit" value="Envoyer">
         <br>
         <br>
+
     </form>
     <table class="chess-board">
         <tbody>
@@ -165,7 +165,7 @@ function tableauxEchecs()
                 <td class="light"></td>
                 <td class="dark"></td>
                 <td class="light"></td>
-                <td class="dark"></td>
+                <td class="dark">PB</td>
                 <td class="light"></td>
             </tr>
             <tr>
@@ -184,7 +184,7 @@ function tableauxEchecs()
                 <td class="dark"></td>
                 <td class="light"></td>
                 <td class="dark"></td>
-                <td class="light"></td>
+                <td class="light">FB</td>
                 <td class="dark"></td>
                 <td class="light"></td>
                 <td class="dark"></td>
@@ -207,7 +207,7 @@ function tableauxEchecs()
                 <td class="light"></td>
                 <td class="dark">CW</td>
                 <td class="light"></td>
-                <td class="dark"></td>
+                <td class="dark">FW</td>
                 <td class="light"></td>
                 <td class="dark"></td>
                 <td class="light"></td>
@@ -217,7 +217,7 @@ function tableauxEchecs()
                 <td class="light"></td>
                 <td class="dark"></td>
                 <td class="light"></td>
-                <td class="dark"></td>
+                <td class="dark">PW</td>
                 <td class="light"></td>
                 <td class="dark"></td>
                 <td class="light"></td>
@@ -247,6 +247,21 @@ function tableauxEchecs()
             </tr>
         </tbody>
     </table>
+
+    <?php
+
+    if (isset($_POST['x']) && isset($_POST['y'])) {
+        $x = $_POST['x'];
+        $y = $_POST['y'];
+        echo "Cavalier white peut aller: "; var_dump($c1->peutAller($x, $y)); echo RC;
+        echo "Fou white peut aller: "; var_dump($f1->peutAller($x, $y)); echo RC;
+        echo "Cavalier black peut aller: "; var_dump($c2->peutAller($x, $y)); echo RC;
+        echo "Fou black peut aller: "; var_dump($f2->peutAller($x, $y)); echo RC;
+        echo "Pion white peut aller: "; var_dump($p1->peutAller($x, $y)); echo RC;
+        echo "Pion black peut aller: "; var_dump($p2->peutAller($x, $y)); echo RC;
+    }
+
+    ?>
 </body>
 
 </html>
