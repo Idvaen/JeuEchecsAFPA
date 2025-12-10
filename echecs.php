@@ -79,6 +79,8 @@ try {
     $f1 = new Fou(5, 3, PieceEchecs::BLANCHE);
     $c2 = new Cavalier(2,8,PieceEchecs::BLANCHE);
     $f2 = new Fou(4, 5, PieceEchecs::NOIRE);
+    $p1 = new Pion(4,2, PieceEchecs::BLANCHE);
+    $p2 = new Pion(7,7, PieceEchecs::NOIRE);
 
 } catch (PieceEchecsException $e) {
     echo $e->getMessage();
@@ -100,7 +102,7 @@ function tableauxEchecs()
 <html>
 
 <head>
-    <title></title>
+    <title>Jeu de l'Echecs</title>
     <meta charset="UTF-8">
     <style>
         .chess-board {
@@ -131,11 +133,12 @@ function tableauxEchecs()
 </head>
 
 <body>
+    <h1>Jeu de l'echecs</h1>
     <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post">
         <label for="x">X</label>
-        <input type="number" name="x" id="x" style="width: 50px;">
+        <input type="number" name="x" id="x" style="width: 50px;" value="0">
         <label for="y">Y</label>
-        <input type="number" name="y" id="y" style="width: 50px;">
+        <input type="number" name="y" id="y" style="width: 50px;" value="0">
         <input type="submit" value="Envoyer">
         <br>
         <br>
@@ -162,7 +165,7 @@ function tableauxEchecs()
                 <td class="light"></td>
                 <td class="dark"></td>
                 <td class="light"></td>
-                <td class="dark"></td>
+                <td class="dark">PB</td>
                 <td class="light"></td>
             </tr>
             <tr>
@@ -214,7 +217,7 @@ function tableauxEchecs()
                 <td class="light"></td>
                 <td class="dark"></td>
                 <td class="light"></td>
-                <td class="dark"></td>
+                <td class="dark">PW</td>
                 <td class="light"></td>
                 <td class="dark"></td>
                 <td class="light"></td>
@@ -254,6 +257,8 @@ function tableauxEchecs()
         echo "Fou white peut aller: "; var_dump($f1->peutAller($x, $y)); echo RC;
         echo "Cavalier black peut aller: "; var_dump($c2->peutAller($x, $y)); echo RC;
         echo "Fou black peut aller: "; var_dump($f2->peutAller($x, $y)); echo RC;
+        echo "Pion white peut aller: "; var_dump($p1->peutAller($x, $y)); echo RC;
+        echo "Pion black peut aller: "; var_dump($p2->peutAller($x, $y)); echo RC;
     }
 
     ?>
