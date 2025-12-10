@@ -1,7 +1,7 @@
 <?php
 require_once "PieceEchecsException.class.php";
 
-class PieceEchecs
+abstract class PieceEchecs
 {
     public const BLANCHE = 1;
     public const NOIRE = 2;
@@ -84,6 +84,8 @@ class PieceEchecs
 
     }
 
+
+        public abstract function peutAller(int $coordX, int $coordY);
 
 }
 

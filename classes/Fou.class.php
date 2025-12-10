@@ -2,17 +2,10 @@
 class Fou_class extends PieceEchecs
 {
 
-    private string $fou;
-    public function __construct(string $fou = 'F', int $x = 1, int $y = 2, int $color = 1)
+    public function peutAller(int $coordX, int $coordY)
     {
-        $this->fou = $fou;
-        parent::__construct($x, $y, $color);
-    }
-
-    public function peutAller(int $x, int $y)
-    {
-        $this->setX($x) = $x;
-        $this->setX($y) = $y;
+        $coord_origin_x = intval($this->getX());
+        $coord_origin_y = intval($this->getY());
     }
 
 }

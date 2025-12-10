@@ -7,12 +7,17 @@ spl_autoload_register(function ($class) {
 const RC = "<br>\n";
 
 try {
-    $pe1 = new PieceEchecs(1, 2, PieceEchecs::BLANCHE);
-    echo $pe1 . RC;
-    $pe2 = new PieceEchecs(4, 8, PieceEchecs::NOIRE);
-    echo $pe2 . RC;
-    $c1 = new Cavalier(color: PieceEchecs::NOIRE);
+    $c1 = new Cavalier(2, 8, PieceEchecs::NOIRE);
     echo $c1 . RC;
+    $c2 = new Cavalier(3, 3, PieceEchecs::BLANCHE);
+    echo $c2 . RC;
+    echo "2,8 "; var_dump($c1->peutAller(1, 6)); echo RC;
+    echo "3,3 "; var_dump($c2->peutAller(1, 6)); echo RC;
+    var_dump($c1->peutAller(0, 7)); echo RC;
+    var_dump($c1->peutAller(2, 8)); echo RC;
+    var_dump($c1->peutAller(3, 10)); echo RC;
+
+
 } catch (PieceEchecsException $e) {
     echo $e->getMessage();
 }
@@ -98,120 +103,150 @@ function tableauxEchecs()
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <style>
-            .chess-board { border-spacing: 0; border-collapse: collapse; }
-            .chess-board th { padding: .5em; }
-            .chess-board td { border: 1px solid; width: 2em; height: 2em; }
-            .chess-board .light { background: #eee; color: black;}
-            .chess-board .dark { background: #000; color: white;}
-        </style>
-    </head>
-    <body>
-        <table class="chess-board">
-            <tbody>
-                <tr>
-                    <th>8y</th>
-                    <td class="light"></td>
-                    <td class="dark">CB</td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light">CB</td>
-                    <td class="dark"></td>
-                </tr>
-                <tr>
-                    <th>7y</th>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                </tr>
-                <tr>
-                    <th>6y</th>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                </tr>
-                <tr>
-                    <th>5y</th>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                </tr>
-                <tr>
-                    <th>4y</th>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                </tr>
-                <tr>
-                    <th>3y</th>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark">CW</td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                </tr>
-                <tr>
-                    <th>2y</th>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                </tr>
-                <tr>
-                    <th>1y</th>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark"></td>
-                    <td class="light"></td>
-                    <td class="dark">CW</td>
-                    <td class="light"></td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th>1x</th>
-                    <th>2x</th>
-                    <th>3x</th>
-                    <th>4x</th>
-                    <th>5x</th>
-                    <th>6x</th>
-                    <th>7x</th>
-                    <th>8x</th>
-                </tr>
-            </tbody>
-        </table>
-    </body>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <style>
+        .chess-board {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        .chess-board th {
+            padding: .5em;
+        }
+
+        .chess-board td {
+            border: 1px solid;
+            width: 2em;
+            height: 2em;
+        }
+
+        .chess-board .light {
+            background: #eee;
+            color: black;
+        }
+
+        .chess-board .dark {
+            background: #000;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post">
+        <label for="x">X</label>
+        <input type="number" name="x">
+        <label for="y">Y</label>
+        <input type="number" name="y">
+        <br>
+        <br>
+    </form>
+    <table class="chess-board">
+        <tbody>
+            <tr>
+                <th>8y</th>
+                <td class="light"></td>
+                <td class="dark">CB</td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+            </tr>
+            <tr>
+                <th>7y</th>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+            </tr>
+            <tr>
+                <th>6y</th>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+            </tr>
+            <tr>
+                <th>5y</th>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+            </tr>
+            <tr>
+                <th>4y</th>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+            </tr>
+            <tr>
+                <th>3y</th>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark">CW</td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+            </tr>
+            <tr>
+                <th>2y</th>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+            </tr>
+            <tr>
+                <th>1y</th>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+                <td class="dark"></td>
+                <td class="light"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <th>1x</th>
+                <th>2x</th>
+                <th>3x</th>
+                <th>4x</th>
+                <th>5x</th>
+                <th>6x</th>
+                <th>7x</th>
+                <th>8x</th>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
 </html>
