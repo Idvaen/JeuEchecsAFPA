@@ -39,11 +39,18 @@ class Roi extends PieceEchecs
 
             return true;
 
-
         }
 
         return false;
     }
+
+
+    // function peutManger($piece)
+    // {
+    //     if ($piece->getColor() != $this->getColor() && $this->peutAller($piece->getX(), $piece->getY()))
+    //         return true;
+    //     return false;
+    // }
 }
 
 ?>

@@ -85,6 +85,14 @@ class Cavalier extends PieceEchecs
     // }
 
 
+    // function peutManger($piece)
+    // {
+    //     if ($piece->getColor() != $this->getColor() && $this->peutAller($piece->getX(), $piece->getY()))
+    //         return true;
+    //     return false;
+    // }
 }
+
+
 
 ?>

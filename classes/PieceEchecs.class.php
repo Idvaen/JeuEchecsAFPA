@@ -94,6 +94,13 @@ abstract class PieceEchecs
 
     public abstract function peutAller(int $coordX, int $coordY);
 
+    public function peutManger(PieceEchecs $piece)
+    {
+        if ($piece->getColor() != $this->getColor() && $this->peutAller($piece->getX(), $piece->getY()))
+            return true;
+        return false;
+    }
+
 }
 
 ?>

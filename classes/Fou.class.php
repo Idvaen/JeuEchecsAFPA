@@ -71,5 +71,14 @@ class Fou extends PieceEchecs
 
     }
 
+    // function peutManger($piece)
+    // {
+    //     echo $piece->getColor() . "<br>";
+    //     echo $this->getColor() . "<br>";
+    //     if ($piece->getColor() != $this->getColor() && $this->peutAller($piece->getX(), $piece->getY()))
+    //         return true;
+    //     return false;
+    // }
+
 }
 ?>

@@ -32,5 +32,19 @@ class Pion extends PieceEchecs
 
         return false;
     }
+
+
+    public function peutManger(PieceEchecs $piece)
+    {
+        if ($piece->getColor() == $this->getColor())
+            return false;
+        if (abs($this->getX() - $piece->getX()) != 1)
+            return false;
+        if ($this->getColor() == PieceEchecs::BLANCHE && ($piece->getY() - $this->getY()) != 1)
+            return false;
+        if ($this->getColor() == PieceEchecs::NOIRE && ($this->getY() - $piece->getY()) != 1)
+            return false;
+        return true;
+    }
 }
 ?>

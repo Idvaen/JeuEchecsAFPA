@@ -75,11 +75,18 @@ spl_autoload_register(function ($class) {
 const RC = "<br>\n";
 
 try {
+
+    $list_classes = ["Tour", "Cavalier", "Fou", "Dame", "Roi", "Pion"];
+
+    for ($i = 0; $i < 2; $i++) {
+        $list_classes[0] = "";
+    }
+
     $c1 = new Cavalier(3, 3, PieceEchecs::NOIRE);
-    $f1 = new Fou(5, 3, PieceEchecs::BLANCHE);
+    $f1 = new Fou(4, 5, PieceEchecs::NOIRE);
     $c2 = new Cavalier(2, 8, PieceEchecs::BLANCHE);
     $f2 = new Fou(4, 5, PieceEchecs::NOIRE);
-    $p1 = new Pion(4, 2, PieceEchecs::BLANCHE);
+    $p1 = new Pion(5, 4, PieceEchecs::BLANCHE);
     $p2 = new Pion(7, 7, PieceEchecs::NOIRE);
     $r1 = new Roi(7, 2, PieceEchecs::BLANCHE);
     $r2 = new Roi(5, 8, PieceEchecs::NOIRE);
@@ -89,13 +96,26 @@ try {
 }
 
 
-
-for ($i = 8; $i > 0; $i--) {
-    for ($j = 1; $j < 9; $j++) {
-        $board[] = [$j, $i];
+function createBoard()
+{
+    for ($i = 8; $i > 0; $i--) {
+        for ($j = 1; $j < 9; $j++) {
+            $board[] = [$j, $i];
+        }
     }
-}
 
+    for ($i = 0; $i < count($board); $i++) {
+        if ($i % 8 != 0)
+            echo " | " . implode(",", $board[$i]) . " | ";
+        else {
+            echo RC;
+            echo RC;
+            echo " | " . implode(",", $board[$i]) . " | ";
+        }
+
+    }
+    return $board;
+}
 
 
 ?>
@@ -153,25 +173,25 @@ for ($i = 8; $i > 0; $i--) {
         <tbody>
             <tr>
                 <th>8y</th>
-                <td class="light"></td>
+                <td class="light">TB</td>
                 <td class="dark">CB</td>
-                <td class="light"></td>
-                <td class="dark"></td>
+                <td class="light">FB</td>
+                <td class="dark">DB</td>
                 <td class="light">RB</td>
-                <td class="dark"></td>
-                <td class="light"></td>
-                <td class="dark"></td>
+                <td class="dark">FB</td>
+                <td class="light">CB</td>
+                <td class="dark">TB</td>
             </tr>
             <tr>
                 <th>7y</th>
-                <td class="dark"></td>
-                <td class="light"></td>
-                <td class="dark"></td>
-                <td class="light"></td>
-                <td class="dark"></td>
-                <td class="light"></td>
                 <td class="dark">PB</td>
-                <td class="light"></td>
+                <td class="light">PB</td>
+                <td class="dark">PB</td>
+                <td class="light">PB</td>
+                <td class="dark">PB</td>
+                <td class="light">PB</td>
+                <td class="dark">PB</td>
+                <td class="light">PB</td>
             </tr>
             <tr>
                 <th>6y</th>
@@ -201,7 +221,7 @@ for ($i = 8; $i > 0; $i--) {
                 <td class="dark"></td>
                 <td class="light"></td>
                 <td class="dark"></td>
-                <td class="light"></td>
+                <td class="light">PW</td>
                 <td class="dark"></td>
                 <td class="light"></td>
                 <td class="dark"></td>
@@ -210,34 +230,34 @@ for ($i = 8; $i > 0; $i--) {
                 <th>3y</th>
                 <td class="dark"></td>
                 <td class="light"></td>
-                <td class="dark">CW</td>
+                <td class="dark"></td>
                 <td class="light"></td>
-                <td class="dark">FW</td>
+                <td class="dark"></td>
                 <td class="light"></td>
                 <td class="dark"></td>
                 <td class="light"></td>
             </tr>
             <tr>
                 <th>2y</th>
-                <td class="light"></td>
-                <td class="dark"></td>
-                <td class="light"></td>
+                <td class="light">PW</td>
                 <td class="dark">PW</td>
-                <td class="light"></td>
-                <td class="dark"></td>
-                <td class="light">RW</td>
-                <td class="dark"></td>
+                <td class="light">PW</td>
+                <td class="dark">PW</td>
+                <td class="light">PW</td>
+                <td class="dark">PW</td>
+                <td class="light">PW</td>
+                <td class="dark">PW</td>
             </tr>
             <tr>
                 <th>1y</th>
-                <td class="dark"></td>
-                <td class="light"></td>
-                <td class="dark"></td>
-                <td class="light"></td>
-                <td class="dark"></td>
-                <td class="light"></td>
-                <td class="dark"></td>
-                <td class="light"></td>
+                <td class="dark">TW</td>
+                <td class="light">CW</td>
+                <td class="dark">FW</td>
+                <td class="light">RW</td>
+                <td class="dark">DW</td>
+                <td class="light">FW</td>
+                <td class="dark">CW</td>
+                <td class="light">TW</td>
             </tr>
             <tr>
                 <th></th>
@@ -253,49 +273,44 @@ for ($i = 8; $i > 0; $i--) {
         </tbody>
     </table>
 
-    <?php
-
-    if (isset($_POST['x']) && isset($_POST['y'])) {
-        $x = $_POST['x'];
-        $y = $_POST['y'];
-        // echo "$c1  peut aller: ($x,$y) ";
-        // var_dump($c1->peutAller($x, $y));
-        // echo RC;
-        // echo "$f1  peut aller: ($x,$y) ";
-        // var_dump($f1->peutAller($x, $y));
-        // echo RC;
-        // echo "$c2  peut aller: ($x,$y) ";
-        // var_dump($c2->peutAller($x, $y));
-        // echo RC;
-        // echo "$f2  peut aller: ($x,$y) ";
-        // var_dump($f2->peutAller($x, $y));
-        // echo RC;
-        // echo "$p1  peut aller: ($x,$y) ";
-        // var_dump($p1->peutAller($x, $y));
-        // echo RC;
-        // echo "$p2  peut aller: ($x,$y) ";
-        // var_dump($p2->peutAller($x, $y));
-        // echo RC;
-        // echo "$r1  peut aller: ($x,$y) ";
-        // var_dump($r1->peutAller($x, $y));
-        // echo RC;
-        // echo "$r2  peut aller: ($x,$y) ";
-        // var_dump($r2->peutAller($x, $y));
-        // echo RC;
-    }
-
-    for ($i = 0; $i < count($board); $i++) {
-        if ($i % 8 != 0)
-            echo " |  " . implode(",", $board[$i]) . "  | ";
-        else {
+    <div>
+        <?php
+        if (isset($_POST['x']) && isset($_POST['y'])) {
+            $x = $_POST['x'];
+            $y = $_POST['y'];
+            // echo "$c1  peut aller: ($x,$y) ";
+            // var_dump($c1->peutAller($x, $y));
+            // echo RC;
+            echo "$f1  peut aller: ($x,$y) ";
+            var_dump($f1->peutAller($x, $y));
+            echo RC;echo "$f1  peut manger: ($x,$y) ";
+            var_dump($f1->peutManger($p1));
             echo RC;
-            echo RC;
-            echo implode(",", $board[$i]);
+            // echo "$c2  peut aller: ($x,$y) ";
+            // var_dump($c2->peutAller($x, $y));
+            // echo RC;
+            // echo "$f2  peut aller: ($x,$y) ";
+            // var_dump($f2->peutAller($x, $y));
+            // echo RC;
+            // echo "$p1  peut aller: ($x,$y) ";
+            // var_dump($p1->peutAller($x, $y));
+            // echo RC;
+            // echo "$p2  peut aller: ($x,$y) ";
+            // var_dump($p2->peutAller($x, $y));
+            // echo RC;
+            // echo "$r1  peut aller: ($x,$y) ";
+            // var_dump($r1->peutAller($x, $y));
+            // echo RC;
+            // echo "$r2  peut aller: ($x,$y) ";
+            // var_dump($r2->peutAller($x, $y));
+            // echo RC;
         }
 
-    }
+        $board = createBoard();
 
-    ?>
+        ?>
+
+    </div>
 </body>
 
 </html>
