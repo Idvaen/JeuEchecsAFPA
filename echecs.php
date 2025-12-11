@@ -38,7 +38,7 @@
 // - Un constructeur faisant simplement appel au constructeur de la superclasse.
 // Inutile en PHP, car sans constructeur explicite, PHP appelle le constructeur parent.
 // - Une méthode peutAllerA($x, $y) qui renvoie une valeur booléenne indiquant si la pièce en question
-// peut aller en case ($x, $y), compte tenu de sa position actuelle.Mai 2019 Exercices PHP – Réutiliser et spécialiser 6/16
+// peut aller e(n cas) e ($x, $y), compte tenu de sa position actuelle.Mai 2019 Exercices PHP – Réutiliser et spécialiser 6/16
 // Testez avec une application.
 // Aller plus loin :
 // Créez des setters dans la classe PieceEchecs pour permettre la modification des données membres.
@@ -48,7 +48,7 @@
 // C. Tableau de PieceEchecs
 // Depuis une application PHP, créez un tableau de pièces d’échecs. Chaque pièce sera soit un Fou soit
 // un Cavalier.
-// L’application déterminera pour chaque pièce si elle peut ou non aller à la case (5,5).
+// L’application déterminera pour chaque pièce si elle peut ou non aller à( la c) ase (5,5).
 // D. Méthode peutAllerA()
 // Pratique la manipulation des pièces dans un tableau, à condition que tous les objets placés dans le
 // tableau possède la méthode peutAllerA() !
@@ -75,12 +75,14 @@ spl_autoload_register(function ($class) {
 const RC = "<br>\n";
 
 try {
-    $c1 = new Cavalier(3,3,PieceEchecs::NOIRE);
+    $c1 = new Cavalier(3, 3, PieceEchecs::NOIRE);
     $f1 = new Fou(5, 3, PieceEchecs::BLANCHE);
-    $c2 = new Cavalier(2,8,PieceEchecs::BLANCHE);
+    $c2 = new Cavalier(2, 8, PieceEchecs::BLANCHE);
     $f2 = new Fou(4, 5, PieceEchecs::NOIRE);
-    $p1 = new Pion(4,2, PieceEchecs::BLANCHE);
-    $p2 = new Pion(7,7, PieceEchecs::NOIRE);
+    $p1 = new Pion(4, 2, PieceEchecs::BLANCHE);
+    $p2 = new Pion(7, 7, PieceEchecs::NOIRE);
+    $r1 = new Roi(7, 2, PieceEchecs::BLANCHE);
+    $r2 = new Roi(5, 8, PieceEchecs::NOIRE);
 
 } catch (PieceEchecsException $e) {
     echo $e->getMessage();
@@ -88,10 +90,13 @@ try {
 
 
 
-function tableauxEchecs()
-{
-
+for ($i = 8; $i > 0; $i--) {
+    for ($j = 1; $j < 9; $j++) {
+        $board[] = [$j, $i];
+    }
 }
+
+
 
 ?>
 
@@ -152,7 +157,7 @@ function tableauxEchecs()
                 <td class="dark">CB</td>
                 <td class="light"></td>
                 <td class="dark"></td>
-                <td class="light"></td>
+                <td class="light">RB</td>
                 <td class="dark"></td>
                 <td class="light"></td>
                 <td class="dark"></td>
@@ -220,7 +225,7 @@ function tableauxEchecs()
                 <td class="dark">PW</td>
                 <td class="light"></td>
                 <td class="dark"></td>
-                <td class="light"></td>
+                <td class="light">RW</td>
                 <td class="dark"></td>
             </tr>
             <tr>
@@ -253,12 +258,41 @@ function tableauxEchecs()
     if (isset($_POST['x']) && isset($_POST['y'])) {
         $x = $_POST['x'];
         $y = $_POST['y'];
-        echo "Cavalier white peut aller: "; var_dump($c1->peutAller($x, $y)); echo RC;
-        echo "Fou white peut aller: "; var_dump($f1->peutAller($x, $y)); echo RC;
-        echo "Cavalier black peut aller: "; var_dump($c2->peutAller($x, $y)); echo RC;
-        echo "Fou black peut aller: "; var_dump($f2->peutAller($x, $y)); echo RC;
-        echo "Pion white peut aller: "; var_dump($p1->peutAller($x, $y)); echo RC;
-        echo "Pion black peut aller: "; var_dump($p2->peutAller($x, $y)); echo RC;
+        // echo "$c1  peut aller: ($x,$y) ";
+        // var_dump($c1->peutAller($x, $y));
+        // echo RC;
+        // echo "$f1  peut aller: ($x,$y) ";
+        // var_dump($f1->peutAller($x, $y));
+        // echo RC;
+        // echo "$c2  peut aller: ($x,$y) ";
+        // var_dump($c2->peutAller($x, $y));
+        // echo RC;
+        // echo "$f2  peut aller: ($x,$y) ";
+        // var_dump($f2->peutAller($x, $y));
+        // echo RC;
+        // echo "$p1  peut aller: ($x,$y) ";
+        // var_dump($p1->peutAller($x, $y));
+        // echo RC;
+        // echo "$p2  peut aller: ($x,$y) ";
+        // var_dump($p2->peutAller($x, $y));
+        // echo RC;
+        // echo "$r1  peut aller: ($x,$y) ";
+        // var_dump($r1->peutAller($x, $y));
+        // echo RC;
+        // echo "$r2  peut aller: ($x,$y) ";
+        // var_dump($r2->peutAller($x, $y));
+        // echo RC;
+    }
+
+    for ($i = 0; $i < count($board); $i++) {
+        if ($i % 8 != 0)
+            echo " |  " . implode(",", $board[$i]) . "  | ";
+        else {
+            echo RC;
+            echo RC;
+            echo implode(",", $board[$i]);
+        }
+
     }
 
     ?>

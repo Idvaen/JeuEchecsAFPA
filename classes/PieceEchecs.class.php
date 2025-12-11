@@ -84,8 +84,15 @@ abstract class PieceEchecs
 
     }
 
+    protected function canBeOnBoard(int $coordX, int $coordY): bool
+    {
+        if (in_array($coordX, range(1, 8)) && in_array($coordY, range(1, 8)))
+            return true;
+        return false;
+    }
 
-        public abstract function peutAller(int $coordX, int $coordY);
+
+    public abstract function peutAller(int $coordX, int $coordY);
 
 }
 
