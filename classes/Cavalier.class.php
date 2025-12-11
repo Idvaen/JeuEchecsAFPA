@@ -79,7 +79,7 @@ class Cavalier extends PieceEchecs
     //     $coord_origin_y = intval($this->getY());
     //     $distX = abs($coordX - $coord_origin_x);
     //     $distY = abs($coordY - $coord_origin_y);
-    //     if (in_array($coordX, range(1, 8)) && in_array($coordY, range(1, 8)))
+    //     if ($this->canBeOnBoard($coordX,$coordY))
     //         return pow($distX, 2) + pow($distY, 2) == 5 ? true : false;
     //     return false;
     // }
